@@ -145,6 +145,17 @@
   .bez-gramaze .polozka { grid-template-columns: calc(1.5 * var(--j)) 1fr auto; }
   .bez-gramaze .gramaz { display: none; }
 
+  /* nadpis skupiny (Polévky / Hlavní jídla / Přílohy) – zarovnaný s názvy jídel */
+  .skupina {
+    font-size: 0.62em;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--akcent);
+    padding: 0.8em 0 0.1em calc(2 * var(--j));
+  }
+  .skupina:first-child { padding-top: 0.1em; }
+
   /* oddělení polévek od hlavních jídel */
   .polevka + .polozka:not(.polevka) {
     border-top: 1px solid var(--cara);
@@ -342,7 +353,14 @@
     sekce.appendChild(hlavicka);
 
     var ul = el("ul", "polozky");
-    den.polozky.forEach(function (p) { ul.appendChild(vytvorPolozku(p)); });
+    var skupina = null;
+    den.polozky.forEach(function (p) {
+      if (p.skupina && p.skupina !== skupina) {
+        skupina = p.skupina;
+        ul.appendChild(el("li", "skupina", p.skupina));
+      }
+      ul.appendChild(vytvorPolozku(p));
+    });
     sekce.appendChild(ul);
     return sekce;
   }
