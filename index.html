@@ -214,6 +214,9 @@
 
   var DNY = ["Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"];
   var KLIC_ULOZISTE = "tv-menu-posledni";
+  var KLIC_USPECH = "tv-menu-uspech";
+  // Upozornění na neaktuální menu až po půl hodině bez úspěšného stažení
+  var VAROVAT_PO = 30 * 60 * 1000;
   // Menší měřítko týdenního pohledu už není z dálky čitelné – pak se ukáže velký jeden den
   var MIN_CITELNE = 0.7;
 
@@ -229,6 +232,7 @@
   var data = null;
   var posledniText = null;
   var posledniUspech = null;
+  var casovacOpakovani = null;
   var vykreslenyDen = null;
   var spusteno = Date.now();
 
@@ -448,10 +452,15 @@
 
   function zobrazStav(chyba) {
     var stav = document.getElementById("stav");
-    if (!chyba) { stav.textContent = ""; return; }
+    // Krátký výpadek (např. po restartu, než naběhne Wi-Fi) zákazníkům neukazovat
+    if (!chyba || (posledniUspech && Date.now() - posledniUspech < VAROVAT_PO)) {
+      stav.textContent = "";
+      return;
+    }
     if (posledniUspech) {
-      stav.textContent = "⚠ Menu se nepodařilo aktualizovat (naposledy " + posledniUspech.getHours() + ":" +
-        ("0" + posledniUspech.getMinutes()).slice(-2) + ")";
+      var cas = posledniUspech.getHours() + ":" + ("0" + posledniUspech.getMinutes()).slice(-2);
+      if (klic(posledniUspech) !== klic(new Date())) cas = kratkeDatum(posledniUspech) + " " + cas;
+      stav.textContent = "⚠ Menu se nepodařilo aktualizovat (naposledy " + cas + ")";
     } else if (data) {
       stav.textContent = "⚠ Menu se nepodařilo aktualizovat – zobrazena uložená data";
     } else {
@@ -481,11 +490,21 @@
         prijmi(text);
         posledniUspech = new Date();
         zobrazStav();
-        try { localStorage.setItem(KLIC_ULOZISTE, text); } catch (e) {}
+        try {
+          localStorage.setItem(KLIC_ULOZISTE, text);
+          localStorage.setItem(KLIC_USPECH, String(posledniUspech.getTime()));
+        } catch (e) {}
       })
       .catch(function (e) {
         console.warn("Načtení menu selhalo:", e);
         zobrazStav(e);
+        // Nečekat celý interval – síť (Wi-Fi po startu) bývá za chvíli zpátky
+        if (!casovacOpakovani) {
+          casovacOpakovani = setTimeout(function () {
+            casovacOpakovani = null;
+            nactiData();
+          }, 30000);
+        }
       });
   }
 
@@ -493,6 +512,8 @@
   try {
     var ulozeno = localStorage.getItem(KLIC_ULOZISTE);
     if (ulozeno) prijmi(ulozeno);
+    var uspech = parseInt(localStorage.getItem(KLIC_USPECH), 10);
+    if (uspech) posledniUspech = new Date(uspech);
   } catch (e) {}
 
   // Kiosk přepíná do celé obrazovky až po načtení stránky – pak je potřeba přepočítat velikost písma
