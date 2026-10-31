@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920, height=1080">
+<meta name="google" content="notranslate">
+<title>Týdenní menu</title>
+<!--
+  Stránka pro TV (1920×1080). Data čte z menu.json (formát viz CLAUDE.md).
+
+  Parametry v URL (všechny volitelné):
+    ?data=menu.json      odkud brát data
+    &rezim=auto          auto = celý týden, když se vejde čitelně, jinak velký dnešek (o víkendu
+                         nejbližší další den); tyden = týden, pokud se vejde vůbec; dnes = vždy jeden den
+    &minule=ztlumit      ztlumit | skryt – co dělat s dny, které už proběhly
+    &interval=300        jak často stahovat data (v sekundách)
+    &datum=2026-11-04    jen pro testování – předstírá jiný dnešní den
+-->
+<style>
+  :root {
+    /* Barvy – až dodají branding, stačí změnit tady */
+    --pozadi: #14171c;
+    --text: #f3f0ea;
+    --tlumeny: #98a1ab;
+    --cara: #2d343e;
+    --akcent: #e8a33d;
+    --dnes-pozadi: #2a2419;
+    --pismo: "Noto Sans", "DejaVu Sans", "Segoe UI", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--pozadi);
+    color: var(--text);
+    font-family: var(--pismo);
+    cursor: none;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    padding: 34px 56px 26px;
+  }
+
+  /* ---------- Hlavička ---------- */
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    margin-bottom: 22px;
+    border-bottom: 3px solid var(--akcent);
+  }
+
+  .podnik {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--akcent);
+    margin-bottom: 4px;
+  }
+  .podnik:empty { display: none; }
+
+  .nadpis {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .hodiny { text-align: right; }
+  .cas {
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .datum {
+    font-size: 26px;
+    color: var(--tlumeny);
+    margin-top: 6px;
+  }
+
+  /* ---------- Menu ---------- */
+
+  main {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45em;
+    /* --s nastavuje JS tak, aby se vše vešlo na obrazovku.
+       --j je základní jednotka pro šířky sloupců – na rozdíl od em se nemění
+       se zvětšeným písmem dneška, takže sloupce všech dnů lícují. */
+    --j: calc(var(--s, 1) * 30px);
+    font-size: var(--j);
+    line-height: 1.25;
+  }
+
+  .den {
+    display: grid;
+    grid-template-columns: calc(6.4 * var(--j)) 1fr;
+    column-gap: var(--j);
+    padding: 0.4em calc(0.7 * var(--j)) 0.4em calc(0.6 * var(--j));
+    border-left: calc(0.3 * var(--j)) solid transparent;
+    border-radius: 6px;
+  }
+  .den.dnes {
+    font-size: 1.12em;
+    background: var(--dnes-pozadi);
+    border-left-color: var(--akcent);
+  }
+  .den.minuly { opacity: 0.4; }
+
+  .den-nazev { font-weight: 700; font-size: 1.1em; }
+  .den.dnes .den-nazev { color: var(--akcent); }
+  .den-datum { color: var(--tlumeny); font-size: 0.85em; }
+  .stitek {
+    display: inline-block;
+    margin-top: 0.3em;
+    padding: 0.05em 0.45em;
+    border-radius: 4px;
+    background: var(--akcent);
+    color: var(--pozadi);
+    font-size: 0.7em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .polozky { list-style: none; }
+
+  .polozka {
+    display: grid;
+    grid-template-columns: calc(1.5 * var(--j)) calc(4.2 * var(--j)) 1fr auto;
+    column-gap: calc(0.5 * var(--j));
+    align-items: baseline;
+    padding: 0.12em 0;
+  }
+  .bez-gramaze .polozka { grid-template-columns: calc(1.5 * var(--j)) 1fr auto; }
+  .bez-gramaze .gramaz { display: none; }
+
+  /* oddělení polévek od hlavních jídel */
+  .polevka + .polozka:not(.polevka) {
+    border-top: 1px solid var(--cara);
+    margin-top: 0.15em;
+    padding-top: 0.27em;
+  }
+
+  .oznaceni { color: var(--tlumeny); text-align: right; }
+  .gramaz { color: var(--tlumeny); font-size: 0.85em; white-space: nowrap; }
+  .alergeny { color: var(--tlumeny); font-size: 0.6em; white-space: nowrap; }
+  .cena { font-weight: 700; white-space: nowrap; padding-left: 0.6em; }
+
+  /* Režim „jen dnešek“ – jeden velký blok */
+  .rezim-dnes .den { display: block; padding: 0.5em 0.8em; }
+  .rezim-dnes .den.dnes { font-size: 1em; }
+  .rezim-dnes .den-hlavicka {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6em;
+    margin-bottom: 0.4em;
+  }
+  .rezim-dnes .stitek { margin-top: 0; }
+  .rezim-dnes .polozka { padding: 0.25em 0; }
+
+  .zprava {
+    margin: auto;
+    text-align: center;
+    color: var(--tlumeny);
+    font-size: 48px;
+  }
+
+  /* ---------- Patička ---------- */
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 16px;
+    font-size: 22px;
+    color: var(--tlumeny);
+  }
+  .stav { color: var(--akcent); white-space: nowrap; }
+</style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="podnik" id="podnik"></div>
+      <div class="nadpis" id="nadpis">Polední menu</div>
+    </div>
+    <div class="hodiny">
+      <div class="cas" id="cas"></div>
+      <div class="datum" id="datum"></div>
+    </div>
+  </header>
+
+  <main id="menu"><div class="zprava">Načítám menu…</div></main>
+
+  <footer>
+    <span id="poznamka"></span>
+    <span class="stav" id="stav"></span>
+  </footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var DNY = ["Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"];
+  var KLIC_ULOZISTE = "tv-menu-posledni";
+  // Menší měřítko týdenního pohledu už není z dálky čitelné – pak se ukáže velký jeden den
+  var MIN_CITELNE = 0.7;
+
+  var url = new URLSearchParams(location.search);
+  var NASTAVENI = {
+    data: url.get("data") || "menu.json",
+    rezim: ["tyden", "dnes"].indexOf(url.get("rezim")) >= 0 ? url.get("rezim") : "auto",
+    minule: url.get("minule") === "skryt" ? "skryt" : "ztlumit",
+    interval: Math.max(30, parseInt(url.get("interval"), 10) || 300) * 1000,
+    datum: url.get("datum")
+  };
+
+  var data = null;
+  var posledniText = null;
+  var posledniUspech = null;
+  var vykreslenyDen = null;
+  var spusteno = Date.now();
+
+  // ---------- Pomocné funkce ----------
+
+  // "2026-11-02" -> Date o půlnoci místního času (new Date("2026-11-02") by byl UTC)
+  function parsujDatum(text) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(text || "");
+    return m ? new Date(+m[1], m[2] - 1, +m[3]) : null;
+  }
+
+  function klic(d) {
+    return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  }
+
+  function plusDny(d, n) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  }
+
+  function dnesniDatum() {
+    var d = NASTAVENI.datum && parsujDatum(NASTAVENI.datum);
+    var ted = new Date();
+    return d || new Date(ted.getFullYear(), ted.getMonth(), ted.getDate());
+  }
+
+  function kratkeDatum(d) {
+    return d.getDate() + ". " + (d.getMonth() + 1) + ".";
+  }
+
+  function rozsah(od, do_) {
+    if (klic(od) === klic(do_)) return kratkeDatum(od);
+    if (od.getMonth() === do_.getMonth()) return od.getDate() + ".–" + kratkeDatum(do_);
+    return kratkeDatum(od) + " – " + kratkeDatum(do_);
+  }
+
+  function formatCena(c) {
+    if (c === null || c === undefined || c === "") return "";
+    if (typeof c === "number") {
+      var text = c % 1 === 0 ? String(c) : c.toFixed(2).replace(".", ",");
+      return text + " Kč";
+    }
+    return String(c);
+  }
+
+  function el(tag, trida, text) {
+    var e = document.createElement(tag);
+    if (trida) e.className = trida;
+    if (text !== undefined && text !== null) e.textContent = text;
+    return e;
+  }
+
+  // ---------- Výběr dnů ----------
+
+  // Platné dny z dat seřazené podle data
+  function vsechnyDny() {
+    var dny = (data && data.dny) || [];
+    return dny
+      .map(function (d) { return { datum: parsujDatum(d.datum), polozky: d.polozky || [] }; })
+      .filter(function (d) { return d.datum && d.polozky.length; })
+      .sort(function (a, b) { return a.datum - b.datum; });
+  }
+
+  // Dny týdne, který se má ukázat. O víkendu (když už tento týden nic nezbývá)
+  // se ukáže příští týden, pokud ho data obsahují.
+  function dnyKZobrazeni(dnes) {
+    var dny = vsechnyDny();
+    var pondeli = plusDny(dnes, -((dnes.getDay() + 6) % 7));
+
+    function vTydnu(od) {
+      var k1 = klic(od), k2 = klic(plusDny(od, 6));
+      return dny.filter(function (d) { var k = klic(d.datum); return k >= k1 && k <= k2; });
+    }
+
+    var tento = vTydnu(pondeli);
+    var zbyva = tento.some(function (d) { return klic(d.datum) >= klic(dnes); });
+    if (!zbyva) {
+      var pristi = vTydnu(plusDny(pondeli, 7));
+      if (pristi.length) return pristi;
+    }
+    return tento;
+  }
+
+  // ---------- Vykreslení ----------
+
+  function vytvorPolozku(p) {
+    var li = el("li", "polozka" + (p.typ === "polevka" ? " polevka" : ""));
+    li.appendChild(el("span", "oznaceni", p.cislo ? p.cislo + "." : ""));
+    li.appendChild(el("span", "gramaz", p.gramaz || ""));
+
+    var nazev = el("span", "nazev", p.nazev || "");
+    var alergeny = Array.isArray(p.alergeny) ? p.alergeny.join(", ") : p.alergeny;
+    if (alergeny) {
+      nazev.appendChild(document.createTextNode(" "));
+      nazev.appendChild(el("span", "alergeny", "(" + alergeny + ")"));
+    }
+    li.appendChild(nazev);
+    li.appendChild(el("span", "cena", formatCena(p.cena)));
+    return li;
+  }
+
+  function vytvorDen(den, stav, stitek) {
+    var sekce = el("section", "den" + (stav ? " " + stav : ""));
+    var hlavicka = el("div", "den-hlavicka");
+    hlavicka.appendChild(el("div", "den-nazev", DNY[den.datum.getDay()]));
+    hlavicka.appendChild(el("div", "den-datum", kratkeDatum(den.datum)));
+    if (stitek) hlavicka.appendChild(el("div", "stitek", stitek));
+    sekce.appendChild(hlavicka);
+
+    var ul = el("ul", "polozky");
+    den.polozky.forEach(function (p) { ul.appendChild(vytvorPolozku(p)); });
+    sekce.appendChild(ul);
+    return sekce;
+  }
+
+  function zprava(menu, text) {
+    menu.className = "";
+    menu.style.removeProperty("--s");
+    menu.appendChild(el("div", "zprava", text));
+  }
+
+  function vykresli() {
+    var menu = document.getElementById("menu");
+    var dnes = dnesniDatum();
+    var klicDnes = klic(dnes);
+    vykreslenyDen = klicDnes;
+
+    menu.innerHTML = "";
+    document.getElementById("podnik").textContent = (data && data.podnik) || "";
+    document.getElementById("poznamka").textContent = (data && data.poznamka) || "";
+    document.getElementById("nadpis").textContent = "Polední menu";
+
+    if (!data) return zprava(menu, "Načítám menu…");
+
+    var dny = dnyKZobrazeni(dnes);
+    if (!dny.length) return zprava(menu, "Menu na tento týden připravujeme.");
+
+    // Velký den = dnešek, jinak nejbližší další den s menu (o víkendu pondělí)
+    var vybrany = dny.filter(function (d) { return klic(d.datum) >= klicDnes; })[0];
+    if (!vybrany) return zprava(menu, "Menu na příští týden připravujeme.");
+
+    document.getElementById("nadpis").textContent =
+      "Polední menu " + rozsah(dny[0].datum, dny[dny.length - 1].datum);
+
+    var bezGramaze = !dny.some(function (d) {
+      return d.polozky.some(function (p) { return p.gramaz; });
+    });
+
+    // Celý týden jen tehdy, když se vejde čitelně (v režimu tyden vždy, pokud se vejde vůbec);
+    // jinak velký jeden den – nic se nesmí oříznout.
+    if (NASTAVENI.rezim !== "dnes") {
+      var zobrazit = dny;
+      if (NASTAVENI.minule === "skryt") {
+        zobrazit = dny.filter(function (d) { return klic(d.datum) >= klicDnes; });
+      }
+      pripravMenu(menu, "tyden", bezGramaze);
+      zobrazit.forEach(function (d) {
+        var k = klic(d.datum);
+        var stav = k === klicDnes ? "dnes" : (k < klicDnes ? "minuly" : "");
+        menu.appendChild(vytvorDen(d, stav, stav === "dnes" ? "DNES" : ""));
+      });
+      var vysledek = prizpusobVelikost(menu, 1.35);
+      if (vysledek.vejde && (NASTAVENI.rezim === "tyden" || vysledek.meritko >= MIN_CITELNE)) return;
+    }
+
+    pripravMenu(menu, "dnes", bezGramaze);
+    menu.appendChild(vytvorDen(vybrany, "dnes", stitekDne(vybrany.datum, dnes)));
+    prizpusobVelikost(menu, 2.4);
+  }
+
+  function pripravMenu(menu, rezim, bezGramaze) {
+    menu.innerHTML = "";
+    menu.className = "rezim-" + rezim + (bezGramaze ? " bez-gramaze" : "");
+  }
+
+  function stitekDne(datum, dnes) {
+    var rozdil = Math.round((datum - dnes) / 86400000);
+    return rozdil === 0 ? "DNES" : (rozdil === 1 ? "ZÍTRA" : "");
+  }
+
+  // Najde největší měřítko písma, při kterém se menu vejde na obrazovku (půlení intervalu).
+  function prizpusobVelikost(menu, max) {
+    function vejde(s) {
+      menu.style.setProperty("--s", s);
+      return menu.scrollHeight <= menu.clientHeight + 1 && menu.scrollWidth <= menu.clientWidth + 1;
+    }
+    var lo = 0.4, hi = max;
+    if (vejde(hi)) return { meritko: hi, vejde: true };
+    for (var i = 0; i < 9; i++) {
+      var mid = (lo + hi) / 2;
+      if (vejde(mid)) lo = mid; else hi = mid;
+    }
+    return { meritko: lo, vejde: vejde(lo) };
+  }
+
+  // ---------- Hodiny a stav ----------
+
+  function tik() {
+    var ted = new Date();
+    document.getElementById("cas").textContent =
+      ted.getHours() + ":" + ("0" + ted.getMinutes()).slice(-2);
+    var dnes = dnesniDatum();
+    document.getElementById("datum").textContent =
+      DNY[dnes.getDay()].toLowerCase() + " " + kratkeDatum(dnes) + " " + dnes.getFullYear();
+
+    // Přechod přes půlnoc – překreslit kvůli zvýraznění dneška
+    if (vykreslenyDen && vykreslenyDen !== klic(dnes)) vykresli();
+
+    // Jednou denně ve 4 ráno načíst stránku znovu (kvůli úpravám index.html),
+    // ale jen když je server dostupný – jinak by na TV zůstala chybová stránka.
+    if (ted.getHours() === 4 && Date.now() - spusteno > 20 * 3600 * 1000) {
+      spusteno = Date.now();
+      fetch(location.href, { cache: "no-store" })
+        .then(function (r) { if (r.ok) location.reload(); })
+        .catch(function () {});
+    }
+  }
+
+  function zobrazStav(chyba) {
+    var stav = document.getElementById("stav");
+    if (!chyba) { stav.textContent = ""; return; }
+    if (posledniUspech) {
+      stav.textContent = "⚠ Menu se nepodařilo aktualizovat (naposledy " + posledniUspech.getHours() + ":" +
+        ("0" + posledniUspech.getMinutes()).slice(-2) + ")";
+    } else if (data) {
+      stav.textContent = "⚠ Menu se nepodařilo aktualizovat – zobrazena uložená data";
+    } else {
+      stav.textContent = "⚠ Menu se nepodařilo načíst";
+    }
+  }
+
+  // ---------- Načítání dat ----------
+
+  function prijmi(text) {
+    var json = JSON.parse(text);
+    if (text !== posledniText) {
+      posledniText = text;
+      data = json;
+      vykresli();
+    }
+  }
+
+  function nactiData() {
+    var adresa = NASTAVENI.data + (NASTAVENI.data.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now();
+    fetch(adresa, { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      })
+      .then(function (text) {
+        prijmi(text);
+        posledniUspech = new Date();
+        zobrazStav();
+        try { localStorage.setItem(KLIC_ULOZISTE, text); } catch (e) {}
+      })
+      .catch(function (e) {
+        console.warn("Načtení menu selhalo:", e);
+        zobrazStav(e);
+      });
+  }
+
+  // Po startu hned ukázat poslední uložená data (např. když po výpadku proudu ještě nejde síť)
+  try {
+    var ulozeno = localStorage.getItem(KLIC_ULOZISTE);
+    if (ulozeno) prijmi(ulozeno);
+  } catch (e) {}
+
+  // Kiosk přepíná do celé obrazovky až po načtení stránky – pak je potřeba přepočítat velikost písma
+  window.addEventListener("resize", function () {
+    if (data) vykresli();
+  });
+
+  tik();
+  nactiData();
+  setInterval(tik, 15000);
+  setInterval(nactiData, NASTAVENI.interval);
+})();
+</script>
+</body>
+</html>
