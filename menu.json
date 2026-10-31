@@ -1,1 +1,65 @@
-{"dny": []}
+{
+  "podnik": "Jídelna Zikova",
+  "dny": [
+    {"datum": "2026-11-02", "polozky": [
+      {"nazev": "Pórková", "cena": 35},
+      {"nazev": "Hovězí vývar s brokolicí a rýží", "cena": 26},
+      {"nazev": "Kuřecí ražniči", "cena": 100},
+      {"nazev": "Pečená vepřová kýta, špenát", "cena": 90},
+      {"nazev": "Šunkofleky", "cena": 125},
+      {"nazev": "Hrachová kaše, vejce", "cena": 115},
+      {"nazev": "Bramborový knedlík", "cena": 35},
+      {"nazev": "Šťouchané brambory", "cena": 35},
+      {"nazev": "Grilovaná zelenina", "cena": 35}
+    ]},
+    {"datum": "2026-11-03", "polozky": [
+      {"nazev": "Čočková", "cena": 35},
+      {"nazev": "Kuřecí vývar s vejcem", "cena": 26},
+      {"nazev": "Treska s dušenou zeleninou", "cena": 100},
+      {"nazev": "Pomalu pečené kuřecí prso", "cena": 100},
+      {"nazev": "Guláš flamendr", "cena": 90},
+      {"nazev": "Alpský knedlík s vanilkovým krémeme", "cena": 115},
+      {"nazev": "Mačkané brambory", "cena": 35},
+      {"nazev": "Smažené krokety", "cena": 40},
+      {"nazev": "Fazolky se slaninou", "cena": 35},
+      {"nazev": "Houskový knedlík", "cena": 35},
+      {"nazev": "Vařená Rýže", "cena": 35}
+    ]},
+    {"datum": "2026-11-04", "polozky": [
+      {"nazev": "Kapustová", "cena": 35},
+      {"nazev": "Zeleninový vývar s kapáním", "cena": 26},
+      {"nazev": "Pečené kachní stehno, červené zelí", "cena": 120},
+      {"nazev": "Kuřecí řízek", "cena": 100},
+      {"nazev": "Vepřové kung-pao", "cena": 90},
+      {"nazev": "Špagety s hlívou na smetaně", "cena": 115},
+      {"nazev": "Houskový knedlík", "cena": 35},
+      {"nazev": "Vařené brambory", "cena": 35},
+      {"nazev": "Zeleninový salát příloha", "cena": 35},
+      {"nazev": "Vařená Rýže", "cena": 35}
+    ]},
+    {"datum": "2026-11-05", "polozky": [
+      {"nazev": "Kulajda", "cena": 36},
+      {"nazev": "Hovězí vývar s játrovými kned", "cena": 26},
+      {"nazev": "Hovězí nudličky chilli", "cena": 100},
+      {"nazev": "Kuřecí steak Caprese", "cena": 100},
+      {"nazev": "Vepřová kýta na smetaně", "cena": 90},
+      {"nazev": "Buřty na pivě", "cena": 80},
+      {"nazev": "Basmati rýže", "cena": 35},
+      {"nazev": "Smažené hranolky", "cena": 40},
+      {"nazev": "Grilovaná zelenina", "cena": 35},
+      {"nazev": "Houskový knedlík", "cena": 35},
+      {"nazev": "Opečené brambory", "cena": 35}
+    ]},
+    {"datum": "2026-11-06", "polozky": [
+      {"nazev": "Rajská s bazalkou", "cena": 35},
+      {"nazev": "Česnečka", "cena": 26},
+      {"nazev": "Kuřecí steak s ananasem", "cena": 100},
+      {"nazev": "Smažené filé", "cena": 90},
+      {"nazev": "Halušky s uzeným masem, zelí", "cena": 125},
+      {"nazev": "Bolognese špagety", "cena": 115},
+      {"nazev": "Smažené hranolky", "cena": 40},
+      {"nazev": "Zeleninový salát příloha", "cena": 35},
+      {"nazev": "Vařené brambory", "cena": 35}
+    ]}
+  ]
+}
