@@ -1,281 +1,50 @@
 {
   "podnik": "Jídelna Zikova",
-  "vygenerovano": "2026-10-31T20:16:54",
   "dny": [
-    {
-      "datum": "2026-11-02",
-      "polozky": [
-        {
-          "nazev": "Pórková",
-          "cena": 35,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Hovězí vývar s brokolicí a rýží",
-          "cena": 26,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Kuřecí ražniči",
-          "cena": 100,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Pečená vepřová kýta, špenát",
-          "cena": 90,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Šunkofleky",
-          "cena": 125,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Hrachová kaše, vejce",
-          "cena": 115,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Houskový knedlík",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Šťouchané brambory",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Grilovaná zelenina",
-          "cena": 35,
-          "skupina": "Přílohy"
-        }
-      ]
-    },
-    {
-      "datum": "2026-11-03",
-      "polozky": [
-        {
-          "nazev": "Čočková",
-          "cena": 35,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Kuřecí vývar s vejcem",
-          "cena": 26,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Treska s dušenou zeleninou",
-          "cena": 100,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Pomalu pečené kuřecí prso",
-          "cena": 100,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Guláš flamendr",
-          "cena": 90,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Alpský knedlík s vanilkovým krémeme",
-          "cena": 115,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Mačkané brambory",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Smažené krokety",
-          "cena": 40,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Fazolky se slaninou",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Houskový knedlík",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Vařená Rýže",
-          "cena": 35,
-          "skupina": "Přílohy"
-        }
-      ]
-    },
-    {
-      "datum": "2026-11-04",
-      "polozky": [
-        {
-          "nazev": "Kapustová",
-          "cena": 35,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Zeleninový vývar s kapáním",
-          "cena": 26,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Pečené kachní stehno, červené zelí",
-          "cena": 120,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Kuřecí řízek",
-          "cena": 100,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Vepřové kung-pao",
-          "cena": 90,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Špagety s hlívou na smetaně",
-          "cena": 115,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Houskový knedlík",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Vařené brambory",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Zeleninový salát příloha",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Vařená Rýže",
-          "cena": 35,
-          "skupina": "Přílohy"
-        }
-      ]
-    },
-    {
-      "datum": "2026-11-05",
-      "polozky": [
-        {
-          "nazev": "Kulajda",
-          "cena": 36,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Hovězí vývar s játrovými kned",
-          "cena": 26,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Hovězí nudličky chilli",
-          "cena": 100,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Kuřecí steak Caprese",
-          "cena": 100,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Vepřová kýta na smetaně",
-          "cena": 90,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Buřty na pivě",
-          "cena": 80,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Basmati rýže",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Smažené hranolky",
-          "cena": 40,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Grilovaná zelenina",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Houskový knedlík",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Opečené brambory",
-          "cena": 35,
-          "skupina": "Přílohy"
-        }
-      ]
-    },
-    {
-      "datum": "2026-11-06",
-      "polozky": [
-        {
-          "nazev": "Rajská s bazalkou",
-          "cena": 35,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Česnečka",
-          "cena": 26,
-          "skupina": "Polévky"
-        },
-        {
-          "nazev": "Kuřecí steak s ananasem",
-          "cena": 100,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Smažené filé",
-          "cena": 90,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Halušky s uzeným masem, zelí",
-          "cena": 125,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Bolognese špagety",
-          "cena": 115,
-          "skupina": "Hlavní jídla"
-        },
-        {
-          "nazev": "Smažené hranolky",
-          "cena": 40,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Zeleninový salát příloha",
-          "cena": 35,
-          "skupina": "Přílohy"
-        },
-        {
-          "nazev": "Vařené brambory",
-          "cena": 35,
-          "skupina": "Přílohy"
-        }
-      ]
-    }
+    {"datum": "2026-11-09", "polozky": [
+      {"skupina": "Polévky", "cislo": "A", "nazev": "Zeleninová polévka s bramborem", "alergeny": "1, 7, 9"},
+      {"skupina": "Polévky", "cislo": "B", "nazev": "Hovězí vývar s vejcem", "alergeny": "3, 9"},
+      {"skupina": "Menu A", "cislo": "A1", "nazev": "Kuřecí steak v medu a zázvoru, šťouchané brambory"},
+      {"skupina": "Menu A", "cislo": "A2", "nazev": "Kuřecí steak v medu a zázvoru, grilovaná zelenina"},
+      {"skupina": "Menu B", "cislo": "B1", "nazev": "Křenová omáčka s uzeným masem, houskový knedlík", "alergeny": "1, 3, 7"},
+      {"skupina": "Menu B", "cislo": "B2", "nazev": "Vepřové rizoto sypané sýrem, okurka", "alergeny": "7"},
+      {"skupina": "Menu C", "cislo": "C1", "nazev": "Kapustový karbanátek, mačkané brambory, BBQ dip", "alergeny": "1, 3, 7, 10"}
+    ]},
+    {"datum": "2026-11-10", "polozky": [
+      {"skupina": "Polévky", "cislo": "A", "nazev": "Brokolicová", "alergeny": "1, 7"},
+      {"skupina": "Polévky", "cislo": "B", "nazev": "Čínská slepičí s rýžovými nudlemi", "alergeny": "1, 3, 9"},
+      {"skupina": "Menu A", "cislo": "A1", "nazev": "Plněná tortilla kuřecím masem a čerstvou zeleninou", "alergeny": "1, 3, 7, 9"},
+      {"skupina": "Menu A", "cislo": "A2", "nazev": "Zeleninový salát s mozzarellou a sušenými rajčaty", "alergeny": "7"},
+      {"skupina": "Menu B", "cislo": "B1", "nazev": "Hamburská hovězí kýta, houskový knedlík", "alergeny": "1, 3, 7, 10"},
+      {"skupina": "Menu B", "cislo": "B2", "nazev": "Filé zapečené se sýrem, vařené brambory", "alergeny": "1, 4, 7"},
+      {"skupina": "Menu C", "cislo": "C1", "nazev": "Drůbeží játra na cibulce, rýže", "alergeny": "1"}
+    ]},
+    {"datum": "2026-11-11", "polozky": [
+      {"skupina": "Polévky", "cislo": "A", "nazev": "Zelná s klobásou", "alergeny": "1"},
+      {"skupina": "Polévky", "cislo": "B", "nazev": "Drůbeží vývar s nudlemi", "alergeny": "1, 3, 9"},
+      {"skupina": "Menu A", "cislo": "A1", "nazev": "Kuřecí steak s camembertem, hranolky, brusinkový dip", "alergeny": "1, 7"},
+      {"skupina": "Menu A", "cislo": "A2", "nazev": "Kuřecí steak s camembertem, grilovaná zelenina, brusinkový dip", "alergeny": "1, 7"},
+      {"skupina": "Menu B", "cislo": "B1", "nazev": "Vepřové na česneku, bramborový knedlík, kapustové zelí", "alergeny": "1, 3, 7"},
+      {"skupina": "Menu B", "cislo": "B2", "nazev": "Hovězí kung-pao, hranolky/rýže", "alergeny": "5, 6, 8"},
+      {"skupina": "Menu C", "cislo": "C1", "nazev": "Zeleninový kuskus s cizrnou sypaný balkánským sýrem, červená řepa", "alergeny": "1, 3, 7"}
+    ]},
+    {"datum": "2026-11-12", "polozky": [
+      {"skupina": "Polévky", "cislo": "A", "nazev": "Cizrnová", "alergeny": "1, 7"},
+      {"skupina": "Polévky", "cislo": "B", "nazev": "Hovězí vývar s těstovinami", "alergeny": "1, 3, 9"},
+      {"skupina": "Menu A", "cislo": "A1", "nazev": "Hejk pečený po seversku, vařené brambory", "alergeny": "1, 3, 4"},
+      {"skupina": "Menu A", "cislo": "A2", "nazev": "Panenka v sezamové krustě, krokety, pikantní dip", "alergeny": "1, 3, 10, 11"},
+      {"skupina": "Menu A", "cislo": "A3", "nazev": "Panenka v sezamové krustě, fazolky se slaninou, pikantní dip", "alergeny": "1, 3, 10, 11"},
+      {"skupina": "Menu B", "cislo": "B1", "nazev": "Kuřecí sweet and sour, rýže", "alergeny": "6"},
+      {"skupina": "Menu C", "cislo": "C1", "nazev": "Gnocchi Arrabiata", "alergeny": "1, 3, 7"}
+    ]},
+    {"datum": "2026-11-13", "polozky": [
+      {"skupina": "Polévky", "cislo": "A", "nazev": "Gulášová", "alergeny": "1"},
+      {"skupina": "Polévky", "cislo": "B", "nazev": "Zeleninový vývar s rýží", "alergeny": "9"},
+      {"skupina": "Menu A", "cislo": "A1", "nazev": "Krůtí řízek, vařené brambory", "alergeny": "1, 3, 7"},
+      {"skupina": "Menu A", "cislo": "A2", "nazev": "Krůtí řízek, zeleninový salát", "alergeny": "1, 3, 7"},
+      {"skupina": "Menu A", "cislo": "A3", "nazev": "Hovězí rolka s nádivkou, hranolky/rýže", "alergeny": "1, 3, 7"},
+      {"skupina": "Menu B", "cislo": "B1", "nazev": "Zeleninové čufty v rajské omáčce, kolínka/houskový knedlík", "alergeny": "1, 3, 7, 9"},
+      {"skupina": "Menu C", "cislo": "C1", "nazev": "Buchtičky se šodó", "alergeny": "1, 3, 7, 8, 12"}
+    ]}
   ]
 }

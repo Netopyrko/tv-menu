@@ -273,12 +273,6 @@
     return d.getDate() + ". " + (d.getMonth() + 1) + ".";
   }
 
-  function rozsah(od, do_) {
-    if (klic(od) === klic(do_)) return kratkeDatum(od);
-    if (od.getMonth() === do_.getMonth()) return od.getDate() + ".–" + kratkeDatum(do_);
-    return kratkeDatum(od) + " – " + kratkeDatum(do_);
-  }
-
   function formatCena(c) {
     if (c === null || c === undefined || c === "") return "";
     if (typeof c === "number") {
@@ -330,7 +324,8 @@
 
   function vytvorPolozku(p) {
     var li = el("li", "polozka" + (p.typ === "polevka" ? " polevka" : ""));
-    li.appendChild(el("span", "oznaceni", p.cislo ? p.cislo + "." : ""));
+    // Číslo dostane tečku („1.“), textové označení z lístku zůstává beze změny („A1“)
+    li.appendChild(el("span", "oznaceni", typeof p.cislo === "number" ? p.cislo + "." : (p.cislo || "")));
     li.appendChild(el("span", "gramaz", p.gramaz || ""));
 
     var nazev = el("span", "nazev", p.nazev || "");
@@ -390,9 +385,6 @@
     // Velký den = dnešek, jinak nejbližší další den s menu (o víkendu pondělí)
     var vybrany = dny.filter(function (d) { return klic(d.datum) >= klicDnes; })[0];
     if (!vybrany) return zprava(menu, "Menu na příští týden připravujeme.");
-
-    document.getElementById("nadpis").textContent =
-      "Polední menu " + rozsah(dny[0].datum, dny[dny.length - 1].datum);
 
     var bezGramaze = !dny.some(function (d) {
       return d.polozky.some(function (p) { return p.gramaz; });
