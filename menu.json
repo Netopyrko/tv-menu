@@ -53,7 +53,7 @@
       {"skupina": "Polévky", "cislo": "A", "nazev": "Gulášová", "alergeny": "1", "cena": 35},
       {"skupina": "Polévky", "cislo": "B", "nazev": "Zeleninový vývar s rýží", "alergeny": "9", "cena": 26},
       {"skupina": "Hlavní jídla", "cislo": "A1", "nazev": "Krůtí řízek", "alergeny": "1, 3, 7", "cena": 100},
-      {"skupina": "Hlavní jídla", "cislo": "A3", "nazev": "Hovězí rolka s nádivkou", "alergeny": "1, 3, 7", "cena": 120},
+      {"skupina": "Hlavní jídla", "cislo": "A3", "nazev": "Hovězí rolka s nádivkou", "alergeny": "1, 3, 7", "cena": 100},
       {"skupina": "Hlavní jídla", "cislo": "B1", "nazev": "Zeleninové čufty v rajské omáčce", "alergeny": "1, 3, 7, 9", "cena": 90},
       {"skupina": "Hlavní jídla", "cislo": "C1", "nazev": "Buchtičky se šodó", "alergeny": "1, 3, 7, 8, 12", "cena": 115},
       {"skupina": "Přílohy", "nazev": "Vařené brambory", "cena": 35},
