@@ -62,6 +62,55 @@
       {"skupina": "Přílohy", "nazev": "Rýže", "cena": 35},
       {"skupina": "Přílohy", "nazev": "Kolínka", "cena": 35},
       {"skupina": "Přílohy", "nazev": "Houskový knedlík", "cena": 35}
+    ]},
+    {"datum": "2026-11-16", "polozky": [
+      {"skupina": "Polévky", "cislo": "A", "nazev": "Krupicová s bramborem", "cena": 35},
+      {"skupina": "Polévky", "cislo": "B", "nazev": "Kuřecí vývar s kapáním", "cena": 26},
+      {"skupina": "Hlavní jídla", "cislo": "A", "nazev": "Vepřová pečeně, smetana, žampiony", "cena": 100},
+      {"skupina": "Hlavní jídla", "cislo": "B1", "nazev": "Kuřecí paličky v medu", "cena": 90},
+      {"skupina": "Hlavní jídla", "cislo": "B2", "nazev": "Vepřové Švej ču žou, rýže", "cena": 90},
+      {"skupina": "Hlavní jídla", "cislo": "C1", "nazev": "Zapečené brambory s rajčaty Caprese", "cena": 115},
+      {"skupina": "Přílohy", "nazev": "Hranolky", "cena": 40},
+      {"skupina": "Přílohy", "nazev": "Těstoviny", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Grilovaná zelenina", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Rýže", "cena": 35}
+    ]},
+    {"datum": "2026-11-18", "polozky": [
+      {"skupina": "Polévky", "cislo": "A", "nazev": "Zelná s klobásou", "cena": 35},
+      {"skupina": "Polévky", "cislo": "B", "nazev": "Hovězí vývar s nudlemi", "cena": 26},
+      {"skupina": "Hlavní jídla", "cislo": "A", "nazev": "Řízečky z vepřové panenky", "cena": 100},
+      {"skupina": "Hlavní jídla", "cislo": "B1", "nazev": "Kuřecí stehno, špenát", "cena": 90},
+      {"skupina": "Hlavní jídla", "cislo": "B2", "nazev": "Bolognese špagety", "cena": 125},
+      {"skupina": "Hlavní jídla", "cislo": "C1", "nazev": "Vegetariánské chilli", "cena": 80},
+      {"skupina": "Přílohy", "nazev": "Vařené brambory", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Zeleninový salát", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Bramborový knedlík", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Rýže", "cena": 35}
+    ]},
+    {"datum": "2026-11-19", "polozky": [
+      {"skupina": "Polévky", "cislo": "A", "nazev": "Bramboračka", "cena": 35},
+      {"skupina": "Polévky", "cislo": "B", "nazev": "Cibulová se sýrem", "cena": 26},
+      {"skupina": "Hlavní jídla", "cislo": "A", "nazev": "Pstruh s bylinkovým máslem", "cena": 100},
+      {"skupina": "Hlavní jídla", "cislo": "B1", "nazev": "Svíčková omáčka se sekanou", "cena": 90},
+      {"skupina": "Hlavní jídla", "cislo": "B2", "nazev": "Kuřecí nudličky v BBQ", "cena": 90},
+      {"skupina": "Hlavní jídla", "cislo": "C1", "nazev": "Bulgur se zeleninou sypaný sýrem", "cena": 115},
+      {"skupina": "Přílohy", "nazev": "Vařené brambory", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Zeleninový salát", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Houskový knedlík", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Rýže", "cena": 35}
+    ]},
+    {"datum": "2026-11-20", "polozky": [
+      {"skupina": "Polévky", "cislo": "A", "nazev": "Fazolová s párkem", "cena": 35},
+      {"skupina": "Polévky", "cislo": "B", "nazev": "Kuřecí vývar s kapáním", "cena": 26},
+      {"skupina": "Hlavní jídla", "cislo": "A", "nazev": "Krůtí špíz", "cena": 100},
+      {"skupina": "Hlavní jídla", "cislo": "B1", "nazev": "Irský guláš", "cena": 90},
+      {"skupina": "Hlavní jídla", "cislo": "B2", "nazev": "Rybí prsty", "cena": 90},
+      {"skupina": "Hlavní jídla", "cislo": "C1", "nazev": "Špagety Pomodoro s cizrnou", "cena": 115},
+      {"skupina": "Přílohy", "nazev": "Mačkané brambory", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Grilovaná zelenina", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Houskový knedlík", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Rýže", "cena": 35},
+      {"skupina": "Přílohy", "nazev": "Vařené brambory", "cena": 35}
     ]}
   ]
 }
